@@ -64,21 +64,21 @@
       const trimmed = value.trim();
       if (!trimmed) return 'Bitte geben Sie Ihren Namen ein';
       if (trimmed.length < 2) return 'Name muss mindestens 2 Zeichen lang sein';
-      if (!/^[a-zA-ZÀ-ÿs-']+$/.test(trimmed)) return 'Name enthält ungültige Zeichen';
+      if (!/^[a-zA-ZÀ-ÿ\s-']+$/.test(trimmed)) return 'Name enthält ungültige Zeichen';
       return null;
     },
 
     email(value) {
       const trimmed = value.trim();
       if (!trimmed) return 'Bitte geben Sie Ihre E-Mail-Adresse ein';
-      if (!/^[^s@]+@[^s@]+.[^s@]+$/.test(trimmed)) return 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) return 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
       return null;
     },
 
     phone(value) {
       if (!value) return null;
       const trimmed = value.trim();
-      if (!/^[ds+-()]{10,20}$/.test(trimmed)) return 'Bitte geben Sie eine gültige Telefonnummer ein';
+      if (!/^[\d\s+()-]{10,20}$/.test(trimmed)) return 'Bitte geben Sie eine gültige Telefonnummer ein';
       return null;
     },
 
@@ -257,14 +257,14 @@
     },
 
     animateCounter(element) {
-      const target = parseFloat(element.textContent.replace(/[^d.]/g, ''));
+      const target = parseFloat(element.textContent.replace(/[^\d.]/g, ''));
       if (isNaN(target)) return;
 
       const duration = config.countUpDuration;
       const start = 0;
       const increment = target / (duration / 16);
       let current = start;
-      const suffix = element.textContent.replace(/[d.]/g, '').trim();
+      const suffix = element.textContent.replace(/[\d.]/g, '').trim();
 
       const timer = setInterval(() => {
         current += increment;
